@@ -119,15 +119,16 @@ export const getDashboard = async (req, res, next) => {
     sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7);
     
     const dailyExpensesRaw = await prisma.$queryRaw`
-      SELECT 
-        DATE(date) as expense_date,
-        SUM(amount) as total_amount
-      FROM "Expense"
-      WHERE "userId" = ${userId}
-        AND date >= ${sevenDaysAgo}
-      GROUP BY DATE(date)
-      ORDER BY DATE(date) ASC
-    `;
+  SELECT 
+    DATE(date) as expense_date,
+    SUM(amount) as total_amount
+  FROM "expenses"
+  WHERE "userId" = ${userId}
+    AND date >= ${sevenDaysAgo}
+  GROUP BY DATE(date)
+  ORDER BY DATE(date) ASC
+`;
+
 
     const dailyExpenses = dailyExpensesRaw.map(item => ({
       date: item.expense_date.toISOString().split('T')[0],
