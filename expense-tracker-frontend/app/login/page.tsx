@@ -42,7 +42,7 @@ export default function Login() {
         // Store token in localStorage or cookie
         localStorage.setItem('token', data.token)
 
-        console.log('Token:', localStorage.getItem('token'))  
+        
         router.push('/dashboard')
       } else {
         const errorData = await response.json()
