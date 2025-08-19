@@ -1,8 +1,10 @@
 'use client'
 import { useState, useEffect } from 'react'
 import { XMarkIcon } from '@heroicons/react/24/outline'
+import { AddIncomeModalProps } from "../types/model"; 
+import { Category } from "../types/category"; 
 
-interface Category {
+/* interface Category {
   id: number
   name: string
 }
@@ -12,13 +14,16 @@ interface AddIncomeModalProps {
   onClose: () => void
   onIncomeAdded: (income: any) => void
   API_URL: string
-}
+  editingIncome: Income | null; // ✅ เพิ่ม
+  isEditing: boolean;           // ✅ เพิ่ม
+} */
 
 export default function AddIncomeModal({
   isOpen,
   onClose,
-  onIncomeAdded,
-  API_URL
+  onIncomeAdded = () => {}, // Default to no-op function
+  API_URL,
+  
 }: AddIncomeModalProps) {
   const [amount, setAmount] = useState('')
   const [note, setNote] = useState('')

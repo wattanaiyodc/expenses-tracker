@@ -7,7 +7,6 @@ import {
   ArrowLeftIcon,
   CalendarIcon,
   ChartBarIcon,
-  CurrencyDollarIcon,
   ArrowTrendingUpIcon,
   ArrowTrendingDownIcon,
   BanknotesIcon
@@ -89,7 +88,7 @@ export default function ReportsPage() {
   const [selectedPeriod, setSelectedPeriod] = useState('6months')
   const [error, setError] = useState<string | null>(null)
   const router = useRouter()
-  const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001'
+  const API_URL = process.env.NEXT_PUBLIC_API_URL 
 
   useEffect(() => {
     const token = localStorage.getItem('token')
