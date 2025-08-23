@@ -1,8 +1,11 @@
 "use client";
 import { useState, useEffect, useCallback, useMemo, ChangeEvent, FormEvent, memo } from "react";
 import { Plus, Save, Calendar, DollarSign, FileText, Tag, X } from "lucide-react";
+import { AddExpenseModalProps } from "../types/model"; 
+import { Category } from "../types/category";
+import { FormData } from "../types/transacrion";
 
-interface Category {
+/* interface Category {
   id: number;
   name: string;
   color: string;
@@ -20,7 +23,9 @@ interface AddExpenseModalProps {
   onClose: () => void;
   onExpenseAdded?: (expense: any) => void;
   API_URL?: string;
-}
+  editingExpense: Expense | null;   // ✅ เพิ่มเข้ามา
+  isEditing: boolean;               // ✅ เพิ่มเข้ามา
+} */
 
 // Memoized utilities
 const getTodayLocal = () => {

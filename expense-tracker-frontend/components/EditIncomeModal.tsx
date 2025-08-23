@@ -46,7 +46,10 @@ export default function Dashboard() {
   const [isExpenseModalOpen, setIsExpenseModalOpen] = useState(false)
   const [isIncomeModalOpen, setIsIncomeModalOpen] = useState(false)
   const [isCategoryModalOpen, setIsCategoryModalOpen] = useState(false)
-  
+  const [isEditExpenseModalOpen, setIsEditExpenseModalOpen] = useState(false)
+  const [isEditIncomeModalOpen, setIsEditIncomeModalOpen] = useState(false)
+  const [editingExpense, setEditingExpense] = useState<Expense | null>(null)
+  const [editingIncome, setEditingIncome] = useState<Income | null>(null)
   const [isDeleting, setIsDeleting] = useState<{type: 'expense' | 'income', id: number} | null>(null)
   
   const router = useRouter()
@@ -118,7 +121,15 @@ export default function Dashboard() {
     }
   }
 
-  
+  const handleEditExpense = (expense: Expense) => {
+    setEditingExpense(expense)
+    setIsEditExpenseModalOpen(true)
+  }
+
+  const handleEditIncome = (income: Income) => {
+    setEditingIncome(income)
+    setIsEditIncomeModalOpen(true)
+  }
 
   const handleDeleteExpense = async (expenseId: number) => {
     if (!confirm('คุณแน่ใจหรือไม่ที่จะลบรายจ่ายนี้?')) return
@@ -173,14 +184,22 @@ export default function Dashboard() {
     setIsExpenseModalOpen(false)
   }
 
-  
+  const handleExpenseUpdated = () => {
+    fetchDashboardData()
+    setIsEditExpenseModalOpen(false)
+    setEditingExpense(null)
+  }
 
   const handleIncomeAdded = () => {
     fetchDashboardData()
     setIsIncomeModalOpen(false)
   }
 
- 
+  const handleIncomeUpdated = () => {
+    fetchDashboardData()
+    setIsEditIncomeModalOpen(false)
+    setEditingIncome(null)
+  }
 
   const handleLogout = () => {
     localStorage.removeItem('token')
@@ -389,7 +408,14 @@ export default function Dashboard() {
                                 +{formatCurrency(income.amount)}
                               </p>
                               
-                              <div className="flex items-center space-x-1 opacity-0 group-hover:opacity-100 transition-opacity">                               
+                              <div className="flex items-center space-x-1 opacity-0 group-hover:opacity-100 transition-opacity">
+                                <button
+                                  onClick={() => handleEditIncome(income)}
+                                  className="p-1.5 text-blue-600 hover:bg-blue-100 rounded-md transition-colors"
+                                  title="แก้ไข"
+                                >
+                                  <PencilIcon className="h-4 w-4" />
+                                </button>
                                 <button
                                   onClick={() => handleDeleteIncome(income.id)}
                                   disabled={isDeleting?.type === 'income' && isDeleting?.id === income.id}
@@ -447,7 +473,13 @@ export default function Dashboard() {
                               </p>
                               
                               <div className="flex items-center space-x-1 opacity-0 group-hover:opacity-100 transition-opacity">
-                               
+                                <button
+                                  onClick={() => handleEditExpense(expense)}
+                                  className="p-1.5 text-blue-600 hover:bg-blue-100 rounded-md transition-colors"
+                                  title="แก้ไข"
+                                >
+                                  <PencilIcon className="h-4 w-4" />
+                                </button>
                                 <button
                                   onClick={() => handleDeleteExpense(expense.id)}
                                   disabled={isDeleting?.type === 'expense' && isDeleting?.id === expense.id}
@@ -571,7 +603,7 @@ export default function Dashboard() {
         onClose={() => setIsExpenseModalOpen(false)}
         onExpenseAdded={handleExpenseAdded}
         API_URL={API_URL}
-        editingExpense={null}
+        editingExpense={null}    // ✅ เพิ่มบรรทัดนี้
         isEditing={false}
       />
 
@@ -580,8 +612,8 @@ export default function Dashboard() {
         onClose={() => setIsIncomeModalOpen(false)}
         onIncomeAdded={handleIncomeAdded}
         API_URL={API_URL}
-        editingIncome={null}
-        isEditing={false}
+        editingIncome={null}    
+        isEditing={false}   
       />
 
       <CategoryManagementModal
@@ -590,7 +622,33 @@ export default function Dashboard() {
         API_URL={API_URL}
       />
 
-      
+      {editingExpense && (
+        <AddExpenseModal
+          isOpen={isEditExpenseModalOpen}
+          onClose={() => {
+            setIsEditExpenseModalOpen(false)
+            setEditingExpense(null)
+          }}
+          onExpenseAdded={handleExpenseUpdated}
+          API_URL={API_URL}
+          editingExpense={editingExpense}
+          isEditing={true}
+        />
+      )}
+
+      {editingIncome && (
+        <AddIncomeModal
+          isOpen={isEditIncomeModalOpen}
+          onClose={() => {
+            setIsEditIncomeModalOpen(false)
+            setEditingIncome(null)
+          }}
+          onIncomeAdded={handleIncomeUpdated}
+          API_URL={API_URL}
+          editingIncome={editingIncome}
+          isEditing={true}
+        />
+      )}
     </div>
   )
 }

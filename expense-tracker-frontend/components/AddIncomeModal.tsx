@@ -1,8 +1,10 @@
 'use client'
 import { useState, useEffect } from 'react'
 import { XMarkIcon } from '@heroicons/react/24/outline'
+import { AddIncomeModalProps } from "../types/model"; 
+import { Category } from "../types/category"; 
 
-interface Category {
+/* interface Category {
   id: number
   name: string
 }
@@ -12,13 +14,16 @@ interface AddIncomeModalProps {
   onClose: () => void
   onIncomeAdded: (income: any) => void
   API_URL: string
-}
+  editingIncome: Income | null; // ✅ เพิ่ม
+  isEditing: boolean;           // ✅ เพิ่ม
+} */
 
 export default function AddIncomeModal({
   isOpen,
   onClose,
-  onIncomeAdded,
-  API_URL
+  onIncomeAdded = () => {}, // Default to no-op function
+  API_URL,
+  
 }: AddIncomeModalProps) {
   const [amount, setAmount] = useState('')
   const [note, setNote] = useState('')
@@ -145,7 +150,7 @@ export default function AddIncomeModal({
   if (!isOpen) return null
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
+    <div className="fixed inset-0 backdrop-blur-sm bg-opacity-50 flex items-center justify-center p-4 z-50">
       <div className="bg-white rounded-lg shadow-xl w-full max-w-md">
         <div className="flex items-center justify-between p-6 border-b border-gray-200">
           <h2 className="text-xl font-semibold text-gray-900">เพิ่มรายรับ</h2>
