@@ -19,3 +19,25 @@
 - ฐานข้อมูล: PostgreSQL
 
 - การยืนยันตัวตน: JWT (JSON Web Token)
+
+Clone โปรเจกต์
+- git clone https://github.com/wattanaiyodc/expenses-tracker.git
+- cd expenses-tracker
+
+ติดตั้ง Dependencies
+# สำหรับ Backend
+- cd expense-tracker-backend
+- npm install
+
+# สำหรับ Frontend
+- cd expense-tracker-frontend
+- npm install
+
+รันแอปพลิเคชัน
+# รัน Backend
+- cd expense-tracker-backend 
+- npm run dev
+
+# รัน Frontend
+- cd expense-tracker-frontend
+- npm run dev
