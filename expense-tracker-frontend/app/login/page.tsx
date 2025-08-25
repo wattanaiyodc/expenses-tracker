@@ -5,7 +5,7 @@ import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 
 export default function Login() {
-  const API_URL = process.env.NEXT_PUBLIC_API_URL  
+  const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:3001"; 
   const [formData, setFormData] = useState({
     email: '',
     password: ''

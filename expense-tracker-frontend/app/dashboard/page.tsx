@@ -50,7 +50,8 @@ export default function Dashboard() {
   const [isDeleting, setIsDeleting] = useState<{type: 'expense' | 'income', id: number} | null>(null)
   
   const router = useRouter()
-  const API_URL = process.env.NEXT_PUBLIC_API_URL 
+  const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:3001";
+
 
   useEffect(() => {
     const token = localStorage.getItem('token')
