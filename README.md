@@ -32,6 +32,12 @@ Clone โปรเจกต์
 # สำหรับ Frontend
 - cd expense-tracker-frontend
 - npm install
+  
+# ตั้งค่าตัวแปรสภาพแวดล้อม
+สร้างไฟล์ .env ในโฟลเดอร์ expense-tracker-backend และกำหนดค่าดังนี้:
+- DATABASE_URL=postgresql://user:password@localhost:5432/expenses_tracker
+- JWT_SECRET=your_jwt_secret
+- PORT = 3001
 
 รันแอปพลิเคชัน
 # รัน Backend
