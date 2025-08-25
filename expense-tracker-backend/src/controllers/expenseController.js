@@ -131,7 +131,7 @@ export const getDashboard = async (req, res, next) => {
 
 
     const dailyExpenses = dailyExpensesRaw.map(item => ({
-      date: item.expense_date.toISOString().split('T')[0],
+      date: item.expense_date ? new Date(item.expense_date).toISOString().split('T')[0] : null,
       amount: parseFloat(item.total_amount)
     }));
 

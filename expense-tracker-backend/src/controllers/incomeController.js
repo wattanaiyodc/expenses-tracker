@@ -118,7 +118,7 @@ export const getIncomeDashboard = async (req, res, next) => {
     `;
 
     const dailyIncome = dailyIncomeRaw.map(item => ({
-      date: item.income_date.toISOString().split('T')[0],
+      date: item.income_date ? new Date(item.income_date).toISOString().split('T')[0] : null,
       amount: parseFloat(item.total_amount)
     }));
 
