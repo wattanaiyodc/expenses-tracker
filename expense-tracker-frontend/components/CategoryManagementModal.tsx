@@ -11,7 +11,7 @@ interface Category {
 interface CategoryManagementModalProps {
   isOpen: boolean
   onClose: () => void
-  API_URL: string
+  API_URL?: string
 }
 
 export default function CategoryManagementModal({
